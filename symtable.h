@@ -1,4 +1,7 @@
 /* Symtable implementation */
+#ifndef SYMTABLELIST_INCLUDED
+#define SYMTABLELIST_INCLUDED
+#endif
 
 SymTable_T SymTable_new(void);
 
@@ -22,3 +25,5 @@ void SymTable_map(SymTable_T oSymTable,
                   void (*pfApply)(const char *pcKey, 
                   void *pvValue, void *pvExtra),
                   const void *pvExtra);
+
+
