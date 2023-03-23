@@ -18,11 +18,13 @@ struct SymTable_T SymTable_new(void){
     struct SymTable_T oSymTable; 
     oSymTable.head = malloc(sizeof(struct SymTable_T));
     assert(oSymTable.head != NULL);
+    (*oSymTable.head).value = NULL;
+    oSymTable.size = 0;
     return oSymTable;
 }
 
 void SymTable_free(SymTable_T oSymTable){
-
+    
 }
 
 size_t SymTable_getLength(SymTable_T oSymTable){
