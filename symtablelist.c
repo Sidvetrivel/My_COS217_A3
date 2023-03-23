@@ -1,7 +1,24 @@
 /* linkedlist symtable implementation */
+#include "symtable.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-SymTable_T SymTable_new(void){
+struct Node {
+    const char *key;
+    void *value;
+    struct Node *next;
+};
+struct SymTable_T {
+    struct Node *head;
+    size_t size;
+};
 
+struct SymTable_T SymTable_new(void){
+    struct SymTable_T oSymTable; 
+    oSymTable.head = malloc(sizeof(struct SymTable_T));
+    assert(oSymTable.head != NULL);
+    return oSymTable;
 }
 
 void SymTable_free(SymTable_T oSymTable){
