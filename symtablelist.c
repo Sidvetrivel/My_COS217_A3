@@ -16,11 +16,10 @@ struct SymTable_T {
 }; 
 
 SymTable_T SymTable_new(void){
-    struct SymTable_T oSymTable; 
-    oSymTable.head = malloc(sizeof(struct SymTable_T));
-    assert(oSymTable.head != NULL);
-    oSymTable.head->value = NULL;
-    oSymTable.size = 0;
+    SymTable_T *oSymTable = malloc(sizeof(struct SymTable_T));
+    assert(oSymTable != NULL);
+    oSymTable->head = NULL;
+    oSymTable->size = 0;
     return oSymTable;
 }
 
@@ -43,15 +42,37 @@ size_t SymTable_getLength(SymTable_T oSymTable){
     struct Node *length_node = oSymTable->head;
     while (length_node != NULL) {
         struct Node *next_node = length_node->next;
+        length++;
         length_node = next_node;
     }
-    oSymTable.size = length;
-    return oSymTable.size;
+    oSymTable->size = length;
+    return oSymTable->size;
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, 
                  const void *pvValue){
-        
+    assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);
+    struct Node *nNode = malloc(sizeof(struct Node));
+    struct Node *currNode = oSymTable->head;
+
+    if (oSymTable->head == NULL) {
+        oSymTable->head = nNode;
+        return 1;
+    }
+
+    while (currNode != NULL) {
+        if (strcmp(currNode->key, pcKey) == 0) {
+            // Found a node with the same key, update its value and return
+            currNode->value = pvValue;
+        }
+        currNode = currNode->next;
+    }
+    currNode = oSymTable->head;
+    while (currNode->next != NULL) {
+        currNode = currNode->next;
+    }
+    currNode->next = nNode;
+    return 0;
 
 }
 
