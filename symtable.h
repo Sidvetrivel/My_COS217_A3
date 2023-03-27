@@ -2,6 +2,7 @@
 #ifndef SYMTABLELIST_INCLUDED
 #define SYMTABLELIST_INCLUDED
 
+struct SymTable;
 typedef struct SymTable *SymTable_T;
 
 SymTable_T SymTable_new(void);

@@ -1,8 +1,6 @@
 /* linkedlist symtable implementation */
 #include "symtable.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 struct Node {
     const char *key;
@@ -10,13 +8,13 @@ struct Node {
     struct Node *next;
 }; 
 
-struct SymTable_T {
+struct SymTable {
     struct Node *head;
     size_t size;
 }; 
 
 SymTable_T SymTable_new(void){
-    struct SymTable_T *oSymTable = malloc(sizeof(struct SymTable_T));
+    struct SymTable *oSymTable = malloc(sizeof(struct SymTable));
     assert(oSymTable != NULL);
     oSymTable->head = NULL;
     oSymTable->size = 0;
@@ -66,10 +64,10 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
                        const void *pvValue){
     assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);
     struct Node *currNode = oSymTable->head;
-    int oldValue;
+    void* oldValue;
     while (currNode != NULL) {
         if (strcmp(currNode->key, pcKey) == 0) {
-            oldValue = currNode->value;
+            oldValue = (void*)currNode->value;
             currNode->value = pvValue;
             return oldValue;
         }
