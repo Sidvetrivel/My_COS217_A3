@@ -16,7 +16,7 @@ struct SymTable_T {
 }; 
 
 SymTable_T SymTable_new(void){
-    SymTable_T *oSymTable = malloc(sizeof(struct SymTable_T));
+    struct SymTable_T *oSymTable = malloc(sizeof(struct SymTable_T));
     assert(oSymTable != NULL);
     oSymTable->head = NULL;
     oSymTable->size = 0;
