@@ -16,6 +16,7 @@ struct Binding {
 
 struct Table {
     struct Binding *buckets[BUCKET_COUNT];
+    size_t size;
 }; 
 
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
@@ -34,7 +35,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
 SymTable_T SymTable_new(void){
     struct SymTable *oSymTable = malloc(sizeof(struct Table));
-     if(oSymTable == NULL){
+    if(oSymTable == NULL){
         return NULL;
     }
     for (int i = 0; i < BUCKET_COUNT; i++) {
@@ -58,16 +59,8 @@ void SymTable_free(SymTable_T oSymTable){
 }
 
 size_t SymTable_getLength(SymTable_T oSymTable){
-    assert(oSymTable != NULL);
-    size_t length = 0;
-    for (size_t i = 0; i < BUCKET_COUNT; i++) {
-        struct Binding *current = oSymTable->buckets[i];
-        while (current != NULL) {
-            length++;
-            current = current->next;
-        }
-    }
-    return length;
+   assert(oSymTable != NULL);
+   return oSymTable->size;
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, 
