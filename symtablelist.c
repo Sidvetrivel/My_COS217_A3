@@ -47,22 +47,29 @@ size_t SymTable_getLength(SymTable_T oSymTable){
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, 
-                 const void *pvValue){
-    struct Node *nNode = malloc(sizeof(struct Node));
-    struct Node *currNode = oSymTable->head;
-    void *defCopy = malloc(strlen(pcKey)+1);
-    strcpy(defCopy,pcKey);
+                 const void *pvValue) {
+
     assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
-    nNode->key = defCopy;
-    nNode->value = pvValue;
-    nNode->next = NULL;
+
+    struct Node *nNode = malloc(sizeof(struct Node));
+    // alloc failure?
     if (nNode == NULL) {
         return 0;
     }
+
+    struct Node *currNode = oSymTable->head;
+    void *defCopy = malloc(strlen(pcKey)+1);
+    // alloc failure?
     if (defCopy == NULL) {
         free(nNode);
         return 0;
     }
+
+    strcpy(defCopy, pcKey);
+    nNode->key = defCopy;
+    nNode->value = pvValue;
+    nNode->next = oSymTable->head;
+
     if (oSymTable->head == NULL) {
         oSymTable->head = nNode;
         oSymTable->size++;
@@ -76,7 +83,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
             }
             currNode = currNode->next;
         }
-        currNode->next = nNode;
+        oSymTable->head = nNode;
         oSymTable->size++;
         return 1;
     }
