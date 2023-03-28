@@ -76,11 +76,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
             }
             currNode = currNode->next;
         }
-        if (strcmp(currNode->key, pcKey) == 0) {
-            free(defCopy);
-            free(nNode);
-            return 0;
-        }
         currNode->next = nNode;
         oSymTable->size++;
         return 1;
