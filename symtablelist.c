@@ -143,7 +143,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     prevNode = NULL;
      while (currNode != NULL) {
         if (strcmp(currNode->key, pcKey) == 0) {
-            value = currNode->value;
+            value = (void*)currNode->value;
             if (prevNode == NULL) {
                 oSymTable->head = currNode->next;
             } else {
