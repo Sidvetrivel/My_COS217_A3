@@ -142,7 +142,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     while (currNode != NULL) {
         if (strcmp(currNode->key, pcKey) == 0) {
             value = (void*)currNode->value; 
-            currNode->key = NULL;
+            free((char *)currNode->key);
             oSymTable->size--;
             return value;
         }
