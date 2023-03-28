@@ -33,7 +33,6 @@ void SymTable_free(SymTable_T oSymTable){
         free((void *)free_node->value);
         free(free_node);
         free_node = free_node->next;
-;
     }
     free(oSymTable);
 }
