@@ -7,15 +7,15 @@
 #include <string.h>
 
 struct Node {
-   const char *key;
-   const void* value;
-   struct Node *next;
-};
+    const char *key;
+    const void* value;
+    struct Node *next;
+}; 
 
 struct SymTable {
-   struct Node *head;
-   size_t size;
-};
+    struct Node *head;
+    size_t size;
+}; 
 
 SymTable_T SymTable_new(void){
    struct SymTable *oSymTable = malloc(sizeof(struct SymTable));
@@ -53,22 +53,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
 
    struct Node *nNode = malloc(sizeof(struct Node));
    struct Node *currNode = oSymTable->head;
-   void *defCopy = malloc(strlen(pcKey)+1);
-   
    /* alloc failure?*/
    if (nNode == NULL) {
       return 0;
    }
-<<<<<<< HEAD
    
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
-   struct Node *currNode = oSymTable->head;
    void *defCopy = malloc(strlen(pcKey)+1);
->>>>>>> 2a8ed4bf5af03af4ac34eb4636561738af5ed1d7
    /*alloc failure?*/
    if (defCopy == NULL) {
       free(nNode);
@@ -146,34 +136,12 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
    currNode = oSymTable->head;
-<<<<<<< HEAD
-
-
-=======
    
->>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
          oSymTable->size--;
 
-<<<<<<< HEAD
-	 if (prev != NULL) {
-            prev->next = currNode->next;
-	 } else {
-            /* removing the head node */
-            oSymTable->head = currNode->next;
-	 }
-	 free((void*)currNode->key);
-	 free((void*)currNode);
-
-         return value;
-      }
-      prev = currNode;
-      currNode = currNode->next;
-   }
-   return NULL;
-=======
          if (prev != NULL) {
             prev->next = currNode->next;
          } else {
@@ -189,7 +157,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
      currNode = currNode->next;
     }
     return NULL;
->>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
 }
 
 void SymTable_map(SymTable_T oSymTable,
