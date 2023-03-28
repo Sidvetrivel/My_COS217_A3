@@ -4,7 +4,6 @@ clobber: clean
     rm -f *~ \#*\#
 clean:
     rm -f testsymtablelist testsymtablehash *.o
- 
 # Dependency rules for file targets
 testsymtablelist: testsymtable.o symtablelist.o
     gcc217 testsymtable.o symtablelist.o -o testsymtablelist
