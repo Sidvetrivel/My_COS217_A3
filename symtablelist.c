@@ -136,6 +136,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     struct Node *currNode;
     struct Node *prevNode;
+    void* value;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
     currNode = oSymTable->head;
@@ -148,7 +149,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
             } else {
                 prevNode->next = currNode->next;
             }
-            free(currNode->key);
+            free((void*)currNode->key);
             free(currNode);
             return value;
         }
