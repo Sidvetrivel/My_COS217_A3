@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stddef.h>
 
 struct Node {
     const char *key;
@@ -26,10 +27,10 @@ SymTable_T SymTable_new(void){
 void SymTable_free(SymTable_T oSymTable){
     assert(oSymTable != NULL);
     struct Node *free_node = oSymTable->head;
+    struct Node *next_node = free_node->next;
     while (free_node != NULL) {
-        struct Node *next_node = free_node->next;
         free((char *)free_node->key);
-        free(free_node->value);
+        free((int)free_node->value);
         free(free_node);
         free_node = next_node;
     }
