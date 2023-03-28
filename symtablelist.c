@@ -56,7 +56,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
     struct Node *nNode = malloc(sizeof(struct Node));
     struct Node *currNode = oSymTable->head;
     assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);
-    //if it is 1 or greater nodes
     if(oSymTable->head == NULL){
         oSymTable->head = nNode;
         nNode->key = pcKey;
