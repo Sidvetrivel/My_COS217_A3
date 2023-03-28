@@ -135,7 +135,8 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     struct Node *remNode;
-    assert((oSymTable != NULL) || (pcKey != NULL));
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     remNode = oSymTable->head;
     while (remNode != NULL) {
         if (strcmp(remNode->key, pcKey) == 0) {
