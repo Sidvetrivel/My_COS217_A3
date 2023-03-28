@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stddef.h>
+#include <string.h>
 
 enum {BUCKET_COUNT = 509};
 
