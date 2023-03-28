@@ -55,10 +55,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue){
     struct Node *nNode = malloc(sizeof(struct Node));
     struct Node *currNode = oSymTable->head;
+    void *defCopy = malloc(sizeof(*pcKey));
+    strcpy(defCopy,pcKey);
     assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);
     if(oSymTable->head == NULL){
         oSymTable->head = nNode;
-        nNode->key = pcKey;
+        nNode->key = defCopy;
         nNode->value = pvValue;
         oSymTable->size++;
         return 1;
@@ -71,7 +73,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
             currNode = currNode->next;
         }
         currNode->next = nNode;
-        nNode->key = pcKey;
+        nNode->key = defCopy;
         nNode->value = pvValue;
         oSymTable->size++;
         return 1;
