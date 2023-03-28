@@ -18,9 +18,6 @@ struct Table {
     struct Binding *buckets[BUCKET_COUNT];
 }; 
 
-/* Return a hash code for pcKey that is between 0 and uBucketCount-1,
-   inclusive. */
-
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -37,7 +34,9 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
 SymTable_T SymTable_new(void){
     struct SymTable *oSymTable = malloc(sizeof(struct Table));
-    assert(oSymTable != NULL);
+     if(oSymTable == NULL){
+        return NULL;
+    }
     for (int i = 0; i < BUCKET_COUNT; i++) {
         oSymTable->buckets[i] = NULL;
     }
@@ -141,7 +140,8 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 }
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
-    assert(oSymTable != NULL && pcKey != NULL);  
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);  
     size_t bucketIndex = SymTable_hash(pcKey, BUCKET_COUNT);
     struct Binding *current = oSymTable->buckets[bucketIndex];  
     struct Binding *previous = NULL;
