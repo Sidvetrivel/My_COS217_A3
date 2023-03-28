@@ -52,14 +52,14 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
     assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
 
     struct Node *nNode = malloc(sizeof(struct Node));
-    // alloc failure?
+    /* alloc failure?*/
     if (nNode == NULL) {
         return 0;
     }
 
     struct Node *currNode = oSymTable->head;
     void *defCopy = malloc(strlen(pcKey)+1);
-    // alloc failure?
+    /*alloc failure?*/
     if (defCopy == NULL) {
         free(nNode);
         return 0;
