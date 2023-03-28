@@ -56,7 +56,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
     struct Node *currNode = oSymTable->head;
     void *defCopy = malloc(strlen(pcKey)+1);
     strcpy(defCopy,pcKey);
-    assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);
+    /*assert(oSymTable != NULL && pcKey != NULL && pvValue != NULL);*/
     nNode->key = defCopy;
     nNode->value = pvValue;
     nNode->next = NULL;
