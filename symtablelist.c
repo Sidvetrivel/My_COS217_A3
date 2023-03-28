@@ -46,6 +46,7 @@ size_t SymTable_getLength(SymTable_T oSymTable){
         count++;
         length_node = length_node->next;
     }
+    oSymTable->size = count;
     return count;
 }
 
