@@ -1,6 +1,8 @@
 /* hashmap symtable implementation */
 #include "symtable.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
 enum {BUCKET_COUNT = 509};
 

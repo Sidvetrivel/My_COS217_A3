@@ -1,6 +1,8 @@
 /* linkedlist symtable implementation */
 #include "symtable.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
 struct Node {
     const char *key;
