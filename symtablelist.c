@@ -56,7 +56,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    if (nNode == NULL) {
       return 0;
    }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
    struct Node *currNode = oSymTable->head;
    void *defCopy = malloc(strlen(pcKey)+1);
    /*alloc failure?*/
@@ -136,13 +139,18 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
    currNode = oSymTable->head;
+<<<<<<< HEAD
 
 
+=======
+   
+>>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
          oSymTable->size--;
 
+<<<<<<< HEAD
 	 if (prev != NULL) {
             prev->next = currNode->next;
 	 } else {
@@ -158,6 +166,23 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
       currNode = currNode->next;
    }
    return NULL;
+=======
+         if (prev != NULL) {
+            prev->next = currNode->next;
+         } else {
+            /* removing the head node */
+            oSymTable->head = currNode->next;
+         }
+         free((void*)currNode->key);
+         free((void*)currNode);
+
+         return value;
+     }
+     prev = currNode;
+     currNode = currNode->next;
+    }
+    return NULL;
+>>>>>>> f982fd61e5c11c3f71d248a1400f83d4223dd80e
 }
 
 void SymTable_map(SymTable_T oSymTable,
