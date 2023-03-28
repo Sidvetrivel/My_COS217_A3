@@ -47,7 +47,7 @@ void SymTable_free(SymTable_T oSymTable){
    struct Binding *free_node;
    struct Binding *next_node;
    assert(oSymTable != NULL);
-   for(size_t i = 0; i < oSymTable->bucketSize; i++){
+   for (size_t i = 0; i < (size_t)oSymTable->bucketSize; i++){
       free_node = oSymTable->head[i];
       while (free_node != NULL) {
         free((char *)free_node->key);
@@ -187,7 +187,7 @@ void SymTable_map(SymTable_T oSymTable,
                   const void *pvExtra){
    struct Binding *currNode;
    assert((oSymTable != NULL) || (pfApply != NULL));
-    for(size_t i = 0; i < oSymTable->bucketSize; i++){
+    for (size_t i = 0; i < (size_t)oSymTable->bucketSize; i++){
       currNode = oSymTable->head[i];
       while (currNode != NULL) {
         (*pfApply)(currNode->key, (void*)currNode->value, (void*)pvExtra);
