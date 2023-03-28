@@ -66,7 +66,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
     }
     else {
         while (currNode->next != NULL) {
-            if (strcmp(checkCopy->key, pcKey) == 0){
+            if (strcmp(currNode->key, pcKey) == 0){
                 return 0;
             }
             currNode = currNode->next;
