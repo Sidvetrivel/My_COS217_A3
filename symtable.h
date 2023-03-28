@@ -1,4 +1,4 @@
-/* Symtable implementation */
+#include <stddef.h>
 #ifndef SYMTABLELIST_INCLUDED
 #define SYMTABLELIST_INCLUDED
 
