@@ -30,7 +30,7 @@ void SymTable_free(SymTable_T oSymTable){
     assert(oSymTable != NULL);
     while (free_node != NULL) {
         free((char *)free_node->key);
-        free((void*)free_node->value);
+        free((int*)free_node->value);
         free(free_node);
         free_node = next_node;
     }
