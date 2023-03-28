@@ -41,11 +41,10 @@ void SymTable_free(SymTable_T oSymTable){
 size_t SymTable_getLength(SymTable_T oSymTable){
     size_t length;
     struct Node *length_node = oSymTable->head;
-    struct Node *next_node = length_node->next;
     assert(oSymTable != NULL);
     while (length_node != NULL) {
         length++;
-        length_node = next_node;
+        length_node = length_node->next;
     }
     oSymTable->size = length;
     return oSymTable->size;
