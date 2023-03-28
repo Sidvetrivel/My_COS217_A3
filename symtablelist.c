@@ -76,7 +76,8 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
             return oldValue;
         }
         currNode = currNode->next;
-    }            
+    }
+    return NULL;           
 }
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
@@ -109,7 +110,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     while (remNode != NULL) {
         if (strcmp(remNode->key, pcKey) == 0) {
             remNode->key = NULL;
-            return remNode->value;
+            return (void*)remNode->value;
         }
         remNode = remNode->next;
     } 
@@ -124,7 +125,7 @@ void SymTable_map(SymTable_T oSymTable,
     struct Node *currNode = oSymTable->head;
     assert(oSymTable != NULL && pfApply != NULL);
     while (currNode != NULL) {
-        (*pfApply)(currNode->key, currNode->value, pvExtra);
+        (*pfApply)(currNode->key, (void*)currNode->value, (void*)pvExtra);
         currNode = currNode->next;
     }
 }

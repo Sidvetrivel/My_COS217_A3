@@ -133,7 +133,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
     struct Binding *current = oSymTable->buckets[bucketIndex];  
     while (current != NULL) {
         if (strcmp(current->key, pcKey) == 0) {
-            return current->value;
+            return (void*)current->value;
         }
         current = current->next;
     } 
