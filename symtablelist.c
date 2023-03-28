@@ -135,29 +135,19 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
     struct Node *currNode;
-    struct Node *prevNode;
     void* value;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
     currNode = oSymTable->head;
-    prevNode = NULL;
-     while (currNode != NULL) {
+    while (currNode != NULL) {
         if (strcmp(currNode->key, pcKey) == 0) {
-            value = (void*)currNode->value;
-            if (prevNode == NULL) {
-                oSymTable->head = currNode->next;
-            } else {
-                prevNode->next = currNode->next;
-            }
-            free((void*)currNode->key);
-            free(currNode);
+            value = currNode->value; 
+            currNode->key = NULL;
             return value;
         }
-        prevNode = currNode;
         currNode = currNode->next;
     } 
     return NULL;     
-
 }
 
 void SymTable_map(SymTable_T oSymTable, 
