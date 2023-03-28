@@ -27,9 +27,10 @@ SymTable_T SymTable_new(void){
 
 void SymTable_free(SymTable_T oSymTable){
     struct Node *free_node = oSymTable->head;
-    struct Node *next_node = free_node->next;
+    struct Node *next_node;
     assert(oSymTable != NULL);
     while (free_node != NULL) {
+        next_node = free_node->next;
         free((char *)free_node->key);
         free((void *)free_node->value);
         free(free_node);
