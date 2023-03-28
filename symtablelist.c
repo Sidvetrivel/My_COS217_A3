@@ -144,6 +144,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
             value = (void*)currNode->value; 
             free((char *)currNode->key);
             oSymTable->size--;
+            free(currNode);
             return value;
         }
         currNode = currNode->next;
