@@ -40,12 +40,13 @@ void SymTable_free(SymTable_T oSymTable){
 
 size_t SymTable_getLength(SymTable_T oSymTable){
     struct Node *length_node = oSymTable->head;
+    size_t count = 0;
     assert(oSymTable != NULL);
     while (length_node != NULL) {
-        oSymTable->size++;
+        count++;
         length_node = length_node->next;
     }
-    return oSymTable->size;
+    return count;
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, 
