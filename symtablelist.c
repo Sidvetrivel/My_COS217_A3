@@ -96,7 +96,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
     assert(oSymTable != NULL && pcKey != NULL);
     while (currNode != NULL) {
         if (strcmp(currNode->key, pcKey) == 0) {
-            return currNode->value;
+            return (void*)currNode->value;
         }
         currNode = currNode->next;
     } 
