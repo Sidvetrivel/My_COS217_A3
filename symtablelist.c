@@ -6,18 +6,23 @@
 #include <stddef.h>
 #include <string.h>
 
-
+/* Node is a struct that can be linked together to form 
+a list of Nodes */
 struct Node {
+    /* char pointer to the key */
     const char *key;
+    /* void pointer to the value */
     const void* value;
+    /* pointer to the next Node in list */
     struct Node *next;
 }; 
 
-/* Symtable struct which holds the pointer to the head node of the new
-linked-list as well as a variable size_t which denotes how many Nodes 
-are currently in the SymTable */
+/* SymTable is a struct that points to the head/first Node in 
+a list of Nodes and holds other data about the linked list (size) */
 struct SymTable {
+    /* pointer pointing to the first node of the list */
     struct Node *head;
+    /* size holds the length of a list of Nodes in SymTable */
     size_t size;
 }; 
 
@@ -65,11 +70,9 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    currNode = oSymTable->head;
    defCopy = malloc(strlen(pcKey)+1);
 
-   /* alloc failure? (nNode)*/
    if (nNode == NULL) {
       return 0;
    }
-   /*alloc failure? (defCopy)*/
    if (defCopy == NULL) {
       free(nNode);
       return 0;
