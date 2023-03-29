@@ -112,9 +112,11 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
 
     oldBucketCount = oSymTable->bucketSize;
+    /*checks if SymTable can be expanded further */
     if(oldBucketCount == bucketMax){
         return 0;
     }
+    /* determines the next size of buckets to expand to */
     for (i = 1; i < sizeof(bucketCounts); i++) {
         if (bucketCounts[i] > oSymTable->bucketSize) {
             oSymTable->bucketSize = bucketCounts[i];
@@ -122,12 +124,15 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
         }
     }
 
+    /* allocates new array of buckets */
     newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
     
+    /*checks for insufficient memory allocation */
     if (newHead == NULL) {
         return 0;
     }
 
+    /* rehash old bindings to new array of buckets */
     for (i = 0; i < oldBucketCount; i++) {
         currNode = oSymTable->head[i];
         while (currNode != NULL) {
