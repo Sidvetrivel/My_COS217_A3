@@ -3,7 +3,7 @@ Assignment 3 readme File
 ------------------------------------------------------------------------
 What is your name?
 
-
+Siddharth Vetrivel
 
 ------------------------------------------------------------------------
 What authorized sources of information did you use to complete the
@@ -12,7 +12,12 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
-
+The course's lectures.
+The course's precepts.
+The course's website.
+The course's current staff members outside of class time through 
+office hours.
+Current Intro Lab TAs through visits to the Intro COS Lab.
 
 ------------------------------------------------------------------------
 What unauthorized sources of information did you use to complete the
@@ -26,19 +31,21 @@ interaction, may additionally require the interaction being reported
 to the Committee on Discipline. Write "None" if you used no
 unauthorized sources of information.
 
-
+None
 
 ------------------------------------------------------------------------
 What is your assessment of the assignment? Was it helpful? Was it fun?
 
-
+I found it more enjoyable that the last assignment for sure. The 
+expansion portion, while challenging, was rewarding when I was able to 
+get a solution working.
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
 will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
-
+N/A
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablelist.c, and what are your
@@ -46,7 +53,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-
+None
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablelist.c, and what are your
