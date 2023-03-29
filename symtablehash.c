@@ -78,7 +78,6 @@ size_t SymTable_getLength(SymTable_T oSymTable){
    return oSymTable->bindingsSize;
 }
 
-/*
 static size_t SymTable_expand(SymTable_T oSymTable) {
     size_t i;
     size_t oldBucketCount;
@@ -122,7 +121,6 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     oSymTable->head = newHead;
     return 1;
 }
-*/
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue) {
@@ -131,7 +129,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    struct Binding *currNode;
    void *defCopy;
 
-   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL); 
 
@@ -140,11 +137,9 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    currNode = oSymTable->head[bucket];
    defCopy = malloc(strlen(pcKey)+1);
 
-   /* alloc failure?*/
    if (nNode == NULL) {
       return 0;
    }
-   /*alloc failure?*/
    if (defCopy == NULL) {
       free(nNode);
       return 0;
@@ -165,12 +160,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    }
    oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
-   /*
    if(oSymTable->bindingsSize > oSymTable->bucketSize)
    {
      SymTable_expand(oSymTable);
    }
-   */
    return 1;
 }
 
@@ -180,7 +173,6 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
    void* oldValue;
    size_t bucket; 
 
-   /*assert*/
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
@@ -201,7 +193,6 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
    struct Binding *currNode;
    size_t bucket;
 
-   /*assert*/
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
@@ -220,7 +211,6 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
    struct Binding *currNode;
    size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
 
-   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
@@ -240,7 +230,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    size_t bucket;
    void* value;
 
-   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
@@ -255,7 +244,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
          if (prev != NULL) {
             prev->next = currNode->next;
          } else {
-            /* removing the head node */
             oSymTable->head[bucket] = currNode->next;
          }
          free((void*)currNode->key);
@@ -275,8 +263,7 @@ void SymTable_map(SymTable_T oSymTable,
                   const void *pvExtra){
    struct Binding *currNode;
    size_t i;
-
-   /*assert*/ 
+ 
    assert(oSymTable != NULL);
    assert(pfApply != NULL);
 
