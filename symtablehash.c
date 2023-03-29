@@ -71,9 +71,14 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    struct Binding *nNode;
    struct Binding *currNode;
    void *defCopy;
+
+   assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
+
+   /*
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
    assert(pvValue != NULL);
+    */
 
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    nNode = malloc(sizeof(struct Binding));
