@@ -108,10 +108,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    }
    oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
+   /*
    if(oSymTable->bindingsSize > oSymTable->bucketSize)
    {
      SymTable_expand(oSymTable);
    }
+   */
    return 1;
 }
 
@@ -210,13 +212,12 @@ void SymTable_map(SymTable_T oSymTable,
       }
    }
 }
-
+/*
 int SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
     size_t i;
     size_t oldBucketCount = oSymTable->bucketSize;
 
-    /* Determine new bucket count */
     for (i = 1; i < sizeof(bucketCounts); i++) {
         if (bucketCounts[i] > oSymTable->bucketSize) {
             oSymTable->bucketSize = bucketCounts[i];
@@ -224,13 +225,11 @@ int SymTable_expand(SymTable_T oSymTable) {
         }
     }
 
-    /* Allocate new bucket array */
     struct Binding **newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
     if (newHead == NULL) {
         return 0;
     }
 
-    /* Rehash existing elements */
     for (i = 0; i < oldBucketCount; i++) {
         struct Binding *currNode = oSymTable->head[i];
         while (currNode != NULL) {
@@ -242,11 +241,9 @@ int SymTable_expand(SymTable_T oSymTable) {
         }
     }
 
-    /* Free old bucket array */
     free(oSymTable->head);
 
-    /* Update SymTable struct */
     oSymTable->head = newHead;
     return 1;
 }
- 
+*/ 
