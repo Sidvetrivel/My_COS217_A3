@@ -62,7 +62,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL); 
-   assert(pvValue != NULL);
 
    nNode = malloc(sizeof(struct Node));
    currNode = oSymTable->head;
@@ -191,7 +190,6 @@ void SymTable_map(SymTable_T oSymTable,
    /*assert*/ 
    assert(oSymTable != NULL);
    assert(pfApply != NULL);
-   assert(pvExtra != NULL);
 
    currNode = oSymTable->head;
    while (currNode != NULL) {

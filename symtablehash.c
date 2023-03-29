@@ -130,7 +130,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL); 
-   assert(pvValue != NULL);
 
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    nNode = malloc(sizeof(struct Binding));
@@ -274,7 +273,6 @@ void SymTable_map(SymTable_T oSymTable,
    /*assert*/ 
    assert(oSymTable != NULL);
    assert(pfApply != NULL);
-   assert(pvExtra != NULL);
 
     for (i = 0; i < (size_t)oSymTable->bucketSize; i++){
       currNode = oSymTable->head[i];
