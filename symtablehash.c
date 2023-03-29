@@ -78,6 +78,7 @@ size_t SymTable_getLength(SymTable_T oSymTable){
    return oSymTable->bindingsSize;
 }
 
+/*
 static size_t SymTable_expand(SymTable_T oSymTable) {
     size_t i;
     size_t oldBucketCount;
@@ -85,8 +86,7 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     struct Binding **newHead;
     struct Binding *currNode;
     struct Binding *nextNode;
-
-    /*assert*/ 
+ 
     assert(oSymTable != NULL);
 
     oldBucketCount = oSymTable->bucketSize;
@@ -122,6 +122,7 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     oSymTable->head = newHead;
     return 1;
 }
+*/
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue) {
@@ -164,10 +165,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    }
    oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
+   /*
    if(oSymTable->bindingsSize > oSymTable->bucketSize)
    {
      SymTable_expand(oSymTable);
    }
+   */
    return 1;
 }
 
