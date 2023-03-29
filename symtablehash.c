@@ -60,7 +60,7 @@ void SymTable_free(SymTable_T oSymTable){
 
    /*assert*/
    assert(oSymTable != NULL);
-   
+
    for(i = 0; i < (size_t)oSymTable->bucketSize; i++){
       free_node = oSymTable->head[i];
       while (free_node != NULL) {
@@ -199,6 +199,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
 
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    currNode = oSymTable->head[bucket];
+   prev = NULL;
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;

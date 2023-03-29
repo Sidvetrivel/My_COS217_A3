@@ -69,15 +69,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-"symtablehash.c:214:5: Function SymTable_expand exported but not declared in
-                         header file
-  A declaration is exported, but does not appear in a header file. (Use
-  -exportheader to inhibit warning)
-   symtablehash.c:246:1: Definition of SymTable_expand"
-
-I disagree with this warning because the client will never have to call
-the SymTable_expand function manually. symtablehash.c uses the expand
-helper function automatically to expand the buckets in the symtable.
+None
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablehash.c, and what are your
