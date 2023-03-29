@@ -78,6 +78,48 @@ size_t SymTable_getLength(SymTable_T oSymTable){
    return oSymTable->bindingsSize;
 }
 
+static size_t SymTable_expand(SymTable_T oSymTable) {
+    size_t i;
+    size_t oldBucketCount;
+    size_t newBucket;
+    struct Binding **newHead;
+    struct Binding *currNode;
+    struct Binding *nextNode;
+
+    /*assert*/ 
+    assert(oSymTable != NULL);
+
+    oldBucketCount = oSymTable->bucketSize;
+    for (i = 1; i < sizeof(bucketCounts); i++) {
+        if (bucketCounts[i] > oSymTable->bucketSize) {
+            oSymTable->bucketSize = bucketCounts[i];
+            break;
+        }
+    }
+
+    newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
+    
+    if (newHead == NULL) {
+        return 0;
+    }
+
+    for (i = 0; i < oldBucketCount; i++) {
+        currNode = oSymTable->head[i];
+        while (currNode != NULL) {
+            nextNode = currNode->next;
+            newBucket = SymTable_hash(currNode->key,oSymTable->bucketSize);
+            currNode->next = newHead[newBucket];
+            newHead[newBucket] = currNode;
+            currNode = nextNode;
+        }
+    }
+
+    free(oSymTable->head);
+
+    oSymTable->head = newHead;
+    return 1;
+}
+
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue) {
    size_t bucket; 
@@ -243,45 +285,4 @@ void SymTable_map(SymTable_T oSymTable,
    }
 }
 
-static size_t SymTable_expand(SymTable_T oSymTable) {
-    size_t i;
-    size_t oldBucketCount;
-    size_t newBucket;
-    struct Binding **newHead;
-    struct Binding *currNode;
-    struct Binding *nextNode;
-
-    /*assert*/ 
-    assert(oSymTable != NULL);
-
-    oldBucketCount = oSymTable->bucketSize;
-    for (i = 1; i < sizeof(bucketCounts); i++) {
-        if (bucketCounts[i] > oSymTable->bucketSize) {
-            oSymTable->bucketSize = bucketCounts[i];
-            break;
-        }
-    }
-
-    newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
-    
-    if (newHead == NULL) {
-        return 0;
-    }
-
-    for (i = 0; i < oldBucketCount; i++) {
-        currNode = oSymTable->head[i];
-        while (currNode != NULL) {
-            nextNode = currNode->next;
-            newBucket = SymTable_hash(currNode->key,oSymTable->bucketSize);
-            currNode->next = newHead[newBucket];
-            newHead[newBucket] = currNode;
-            currNode = nextNode;
-        }
-    }
-
-    free(oSymTable->head);
-
-    oSymTable->head = newHead;
-    return 1;
-}
 
