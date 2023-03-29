@@ -61,7 +61,20 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+   symtablelist.c: line 61: medium priority:
+   Do you want to validate 'pvValue' through an assert?
 
+   symtablelist.c: line 100: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablelist.c: line 185: medium priority:
+   Do you want to validate 'pvExtra' through an assert?
+
+I disagree with all three of these warnings because all the 
+variables that criTer is suggesting to assert can be NULL
+and thus it shouldn't be a concern if we aren't asserting these values. If anything it would break the functionality
+of the code if we were to validate these parameters in the 
+event that any of these values were passed as NULL.
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablehash.c, and what are your

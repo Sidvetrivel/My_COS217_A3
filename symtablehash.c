@@ -11,6 +11,10 @@ the size of bucket array we can either start with/ expand to */
 static const size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 
 16381, 32749, 65521};
 
+/* denotes the min value for the number of buckets and the max number 
+buckets for a SymTable */
+enum BucketEnds{bucketMin = 509, bucketMax = 65521};
+
 /* Bindings can be formed to make a list of Bindings and hold
 certain variables: key, value, next. */ 
 struct Binding {
@@ -36,6 +40,8 @@ struct SymTable {
     size_t bindingsSize;
 }; 
 
+/* this function takes in parameters const char pointer pcKey and 
+size_t uBucketCount and outputs a hash index as a type size_t */
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -55,7 +61,7 @@ SymTable_T SymTable_new(void){
    if(oSymTable == NULL){
       return NULL;
    }
-   oSymTable->bucketSize = 509;
+   oSymTable->bucketSize = bucketMin;
    oSymTable->bindingsSize = 0;
    oSymTable->head = calloc(oSymTable->bucketSize, sizeof(oSymTable->head));
    return oSymTable;
@@ -105,7 +111,7 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
 
     oldBucketCount = oSymTable->bucketSize;
-    if(oldBucketCount == 65521){
+    if(oldBucketCount == bucketMax){
         return 0;
     }
     for (i = 1; i < sizeof(bucketCounts); i++) {
