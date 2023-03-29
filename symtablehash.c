@@ -97,7 +97,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
       }
       currNode = currNode->next;
    }
-   oSymTable->head = nNode;
+   oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
    return 1;
 }
@@ -169,7 +169,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
             prev->next = currNode->next;
          } else {
             /* removing the head node */
-            oSymTable->head = currNode->next;
+            oSymTable->head[bucket] = currNode->next;
          }
          free((void*)currNode->key);
          free((void*)currNode);
