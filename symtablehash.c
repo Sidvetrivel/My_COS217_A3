@@ -12,7 +12,7 @@ struct Binding {
     struct Binding *next;
 }; 
 
-struct Table {
+struct SymTable {
     struct Binding **head;
     size_t bucketSize;
     size_t bindingsSize;
@@ -33,7 +33,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 }
 
 SymTable_T SymTable_new(void){
-   struct Table *oSymTable = malloc(sizeof(struct Table));
+   struct SymTable *oSymTable = malloc(sizeof(struct SymTable));
    oSymTable->bucketSize = 509;
    oSymTable->bindingsSize = 0;
    if(oSymTable == NULL){
@@ -62,7 +62,7 @@ void SymTable_free(SymTable_T oSymTable){
 
 size_t SymTable_getLength(SymTable_T oSymTable){
    assert(oSymTable != NULL);
-   return oSymTable->bindingSize;
+   return oSymTable->bindingsSize;
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
@@ -98,7 +98,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
       currNode = currNode->next;
    }
    oSymTable->head = nNode;
-   oSymTable->bindingSize++;
+   oSymTable->bindingsSize++;
    return 1;
 }
 
@@ -163,7 +163,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
-         oSymTable->bindingSize--;
+         oSymTable->bindingsSize--;
 
          if (prev != NULL) {
             prev->next = currNode->next;
