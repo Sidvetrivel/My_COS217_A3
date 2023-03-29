@@ -3,6 +3,7 @@
 #ifndef SYMTABLELIST_INCLUDED
 #define SYMTABLELIST_INCLUDED
 
+/* global variable object SymTable initialization*/
 struct SymTable;
 typedef struct SymTable *SymTable_T;
 
