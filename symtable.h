@@ -1,3 +1,4 @@
+/*symtable header file*/
 #include <stddef.h>
 #ifndef SYMTABLELIST_INCLUDED
 #define SYMTABLELIST_INCLUDED
@@ -14,8 +15,8 @@ SymTable_T SymTable_new(void);
 the memory that the object occupies */ 
 void SymTable_free(SymTable_T oSymTable);
 
-/* SymTable_getLength takes in a SymTable object and returns the number
-of bindings in the SymTable object */
+/* SymTable_getLength takes in a SymTable object oSymTable
+and returns the number of bindings in the SymTable object */
 size_t SymTable_getLength(SymTable_T oSymTable);
 
 /* SymTable_put takes in SymTable object oSymTable, a const char 
