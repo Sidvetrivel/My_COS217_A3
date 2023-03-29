@@ -1,4 +1,4 @@
-/* hash symtable implementation */
+/* symtable hash implementation */
 #include "symtable.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +6,8 @@
 #include <stddef.h>
 #include <string.h>
 
+/* bucketCounts array holds all the possible configurations for the
+the size of bucket array we can either start with/ expand to */
 static const size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 
 16381, 32749, 65521};
 
@@ -15,6 +17,11 @@ struct Binding {
     struct Binding *next;
 }; 
 
+/* hash implementation of the SymTable struct has a double pointer 
+pointing to the head node of the first Binding (first linked list in
+the array of linked list). It also holds the total number of buckets 
+we are currently using as well as how many bindings are in the 
+SymTable */
 struct SymTable {
     struct Binding **head;
     size_t bucketSize;
@@ -211,6 +218,10 @@ void SymTable_map(SymTable_T oSymTable,
    }
 }
 
+/* when called, the expand function will create a new array of
+buckets with double the number of buckets, rehash all the previous 
+bindings to the new buckets, free the old array of buckets, and point 
+the head pointer of the SymTable to the new array of buckets.*/
 int SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
     size_t i;

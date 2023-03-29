@@ -1,4 +1,4 @@
-/* linkedlist symtable implementation */
+/* symtable linkedList implementation */
 #include "symtable.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,12 +6,17 @@
 #include <stddef.h>
 #include <string.h>
 
+/* Node struct holds a pointer to the key, a void* to a value, and a 
+pointer pointing to the next Node within the linkedlist */
 struct Node {
     const char *key;
     const void* value;
     struct Node *next;
 }; 
 
+/* Symtable struct which holds the pointer to the head node of the new
+linked-list as well as a variable size_t which denotes how many Nodes 
+are currently in the SymTable */
 struct SymTable {
     struct Node *head;
     size_t size;
