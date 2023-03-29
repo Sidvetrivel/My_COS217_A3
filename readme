@@ -90,7 +90,18 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+    symtablehash.c: line 154: medium priority:
+   Do you want to validate 'pvValue' through an assert?
 
+   symtablehash.c: line 199: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+
+   symtablehash.c: line 291: medium priority:
+   Do you want to validate 'pvExtra' through an assert?
+
+Once again, all these warnings are similar in that I disagree
+with all 3 of them due to the fact that asserting pvValue and pvExtra would break the functionality of a the code since
+these values can be NULL values.
 
 ------------------------------------------------------------------------
 What are the CPU times reported by testsymtable.c with binding counts
