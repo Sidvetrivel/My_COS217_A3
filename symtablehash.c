@@ -67,11 +67,18 @@ size_t SymTable_getLength(SymTable_T oSymTable){
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue) {
-   assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
-   size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
-   struct Binding *nNode = malloc(sizeof(struct Binding));
-   struct Binding *currNode = oSymTable->head[bucket];
-   void *defCopy = malloc(strlen(pcKey)+1);
+   size_t bucket; 
+   struct Binding *nNode;
+   struct Binding *currNode;
+   void *defCopy;
+   assert(oSymTable != NULL);
+   assert(pcKey != NULL);
+   assert(pvValue != NULL);
+
+   bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
+   nNode = malloc(sizeof(struct Binding));
+   currNode = oSymTable->head[bucket];
+   defCopy = malloc(strlen(pcKey)+1);
 
    /* alloc failure?*/
    if (nNode == NULL) {
