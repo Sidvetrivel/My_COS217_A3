@@ -172,12 +172,15 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 }
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
-   struct Binding *currNode = NULL;
-   struct Binding *prev = NULL;
-   size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
+   struct Binding *currNode; 
+   struct Binding *prev;
+   size_t bucket;
    void* value;
+
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
+   bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    currNode = oSymTable->head[bucket];
    
    while (currNode != NULL) {
@@ -208,7 +211,9 @@ void SymTable_map(SymTable_T oSymTable,
                   const void *pvExtra){
    struct Binding *currNode;
    size_t i;
-   assert((oSymTable != NULL) || (pfApply != NULL));
+   assert(oSymTable != NULL);
+   assert(pfApply != NULL);
+   assert(pvExtra != NULL);
     for (i = 0; i < (size_t)oSymTable->bucketSize; i++){
       currNode = oSymTable->head[i];
       while (currNode != NULL) {
@@ -223,9 +228,16 @@ buckets with double the number of buckets, rehash all the previous
 bindings to the new buckets, free the old array of buckets, and point 
 the head pointer of the SymTable to the new array of buckets.*/
 int SymTable_expand(SymTable_T oSymTable) {
-    assert(oSymTable != NULL);
     size_t i;
-    size_t oldBucketCount = oSymTable->bucketSize;
+    size_t oldBucketCount;
+    size_t newBucket;
+    struct Binding **newHead;
+    struct Binding *currNode;
+    struct Binding *nextNode;
+
+    assert(oSymTable != NULL);
+
+    oldBucketCount = oSymTable->bucketSize;
 
     for (i = 1; i < sizeof(bucketCounts); i++) {
         if (bucketCounts[i] > oSymTable->bucketSize) {
@@ -234,16 +246,17 @@ int SymTable_expand(SymTable_T oSymTable) {
         }
     }
 
-    struct Binding **newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
+    newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
+    
     if (newHead == NULL) {
         return 0;
     }
 
     for (i = 0; i < oldBucketCount; i++) {
-        struct Binding *currNode = oSymTable->head[i];
+        currNode = oSymTable->head[i];
         while (currNode != NULL) {
-            struct Binding *nextNode = currNode->next;
-            size_t newBucket = SymTable_hash(currNode->key,oSymTable->bucketSize);
+            nextNode = currNode->next;
+            newBucket = SymTable_hash(currNode->key,oSymTable->bucketSize);
             currNode->next = newHead[newBucket];
             newHead[newBucket] = currNode;
             currNode = nextNode;

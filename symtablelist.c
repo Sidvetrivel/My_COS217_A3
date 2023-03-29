@@ -169,7 +169,9 @@ void SymTable_map(SymTable_T oSymTable,
                                   void *pvValue, void *pvExtra),
                   const void *pvExtra){
    struct Node *currNode;
-   assert((oSymTable != NULL) || (pfApply != NULL));
+   assert(oSymTable != NULL);
+   assert(pfApply != NULL);
+   assert(pvExtra != NULL);
    currNode = oSymTable->head;
    while (currNode != NULL) {
       (*pfApply)(currNode->key, (void*)currNode->value, (void*)pvExtra);
