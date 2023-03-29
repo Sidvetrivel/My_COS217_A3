@@ -6,6 +6,9 @@
 #include <stddef.h>
 #include <string.h>
 
+static const size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 
+16381, 32749, 65521};
+
 struct Binding {
     const char *key;
     const void* value;
@@ -74,12 +77,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
 
    assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
 
-   /*
-   assert(oSymTable != NULL);
-   assert(pcKey != NULL);
-   assert(pvValue != NULL);
-    */
-
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    nNode = malloc(sizeof(struct Binding));
    currNode = oSymTable->head[bucket];
@@ -111,6 +108,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    }
    oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
+   if(oSymTable->bindingsSize > oSymTable->bucketSize)
+   {
+     SymTable_expand(oSymTable);
+   }
    return 1;
 }
 
@@ -209,3 +210,43 @@ void SymTable_map(SymTable_T oSymTable,
       }
    }
 }
+
+int SymTable_expand(SymTable_T oSymTable) {
+    assert(oSymTable != NULL);
+    size_t i;
+    size_t oldBucketCount = oSymTable->bucketSize;
+
+    /* Determine new bucket count */
+    for (i = 1; i < sizeof(bucketCounts); i++) {
+        if (bucketCounts[i] > oSymTable->bucketSize) {
+            oSymTable->bucketSize = bucketCounts[i];
+            break;
+        }
+    }
+
+    /* Allocate new bucket array */
+    struct Binding **newHead = calloc(oSymTable->bucketSize, sizeof(struct Binding*));
+    if (newHead == NULL) {
+        return 0;
+    }
+
+    /* Rehash existing elements */
+    for (i = 0; i < oldBucketCount; i++) {
+        struct Binding *currNode = oSymTable->head[i];
+        while (currNode != NULL) {
+            struct Binding *nextNode = currNode->next;
+            size_t newBucket = SymTable_hash(currNode->key,oSymTable->bucketSize);
+            currNode->next = newHead[newBucket];
+            newHead[newBucket] = currNode;
+            currNode = nextNode;
+        }
+    }
+
+    /* Free old bucket array */
+    free(oSymTable->head);
+
+    /* Update SymTable struct */
+    oSymTable->head = newHead;
+    return 1;
+}
+ 
