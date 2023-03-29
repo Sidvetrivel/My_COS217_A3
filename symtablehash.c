@@ -243,7 +243,7 @@ void SymTable_map(SymTable_T oSymTable,
    }
 }
 
-int SymTable_expand(SymTable_T oSymTable) {
+static size_t SymTable_expand(SymTable_T oSymTable) {
     size_t i;
     size_t oldBucketCount;
     size_t newBucket;

@@ -6,8 +6,7 @@
 #include <stddef.h>
 #include <string.h>
 
-/* Node struct holds a pointer to the key, a void* to a value, and a 
-pointer pointing to the next Node within the linkedlist */
+
 struct Node {
     const char *key;
     const void* value;
@@ -38,7 +37,7 @@ void SymTable_free(SymTable_T oSymTable){
 
    /*assert*/ 
    assert(oSymTable != NULL);
-   
+
    free_node = oSymTable->head;
    while (free_node != NULL) {
       free((char *)free_node->key);
