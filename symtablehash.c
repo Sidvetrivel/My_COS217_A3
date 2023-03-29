@@ -108,12 +108,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    }
    oSymTable->head[bucket] = nNode;
    oSymTable->bindingsSize++;
-   /*
    if(oSymTable->bindingsSize > oSymTable->bucketSize)
    {
      SymTable_expand(oSymTable);
    }
-   */
    return 1;
 }
 
@@ -212,7 +210,7 @@ void SymTable_map(SymTable_T oSymTable,
       }
    }
 }
-/*
+
 int SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
     size_t i;
@@ -246,4 +244,4 @@ int SymTable_expand(SymTable_T oSymTable) {
     oSymTable->head = newHead;
     return 1;
 }
-*/ 
+
