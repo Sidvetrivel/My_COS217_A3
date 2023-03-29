@@ -30,6 +30,10 @@ void SymTable_map(SymTable_T oSymTable,
                   void *pvValue, void *pvExtra),
                   const void *pvExtra);
 
+/* when called, the expand function will create a new array of
+buckets with double the number of buckets, rehash all the previous 
+bindings to the new buckets, free the old array of buckets, and point 
+the head pointer of the SymTable to the new array of buckets.*/
 int SymTable_expand(SymTable_T oSymTable);
 
 #endif
