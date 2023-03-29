@@ -57,7 +57,10 @@ void SymTable_free(SymTable_T oSymTable){
    struct Binding *free_node;
    struct Binding *next_node;
    size_t i;
+
+   /*assert*/
    assert(oSymTable != NULL);
+   
    for(i = 0; i < (size_t)oSymTable->bucketSize; i++){
       free_node = oSymTable->head[i];
       while (free_node != NULL) {
@@ -82,7 +85,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    struct Binding *currNode;
    void *defCopy;
 
-   assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
+   /*assert*/ 
+   assert(oSymTable != NULL);
+   assert(pcKey != NULL); 
+   assert(pvValue != NULL);
 
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    nNode = malloc(sizeof(struct Binding));
@@ -93,7 +99,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey,
    if (nNode == NULL) {
       return 0;
    }
-
    /*alloc failure?*/
    if (defCopy == NULL) {
       free(nNode);
@@ -126,9 +131,13 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
                        const void *pvValue){
    struct Binding *currNode;
    void* oldValue;
-   size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
+   size_t bucket; 
+
+   /*assert*/
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
+   bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    currNode = oSymTable->head[bucket];
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -143,9 +152,13 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
    struct Binding *currNode;
-   size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
+   size_t bucket;
+
+   /*assert*/
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
+   bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    currNode = oSymTable->head[bucket];
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -159,8 +172,11 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
    struct Binding *currNode;
    size_t bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
+
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
    currNode = oSymTable->head[bucket];
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -177,12 +193,12 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    size_t bucket;
    void* value;
 
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
    bucket = SymTable_hash(pcKey,oSymTable->bucketSize);
    currNode = oSymTable->head[bucket];
-   
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
@@ -211,9 +227,12 @@ void SymTable_map(SymTable_T oSymTable,
                   const void *pvExtra){
    struct Binding *currNode;
    size_t i;
+
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pfApply != NULL);
    assert(pvExtra != NULL);
+
     for (i = 0; i < (size_t)oSymTable->bucketSize; i++){
       currNode = oSymTable->head[i];
       while (currNode != NULL) {
@@ -235,10 +254,10 @@ int SymTable_expand(SymTable_T oSymTable) {
     struct Binding *currNode;
     struct Binding *nextNode;
 
+    /*assert*/ 
     assert(oSymTable != NULL);
 
     oldBucketCount = oSymTable->bucketSize;
-
     for (i = 1; i < sizeof(bucketCounts); i++) {
         if (bucketCounts[i] > oSymTable->bucketSize) {
             oSymTable->bucketSize = bucketCounts[i];

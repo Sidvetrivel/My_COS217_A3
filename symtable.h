@@ -5,6 +5,8 @@
 struct SymTable;
 typedef struct SymTable *SymTable_T;
 
+/*instantiates a new SymTable object and returns a pointer Symtable_T
+to the new SymTable object */
 SymTable_T SymTable_new(void);
 
 void SymTable_free(SymTable_T oSymTable);

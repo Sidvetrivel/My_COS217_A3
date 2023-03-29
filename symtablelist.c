@@ -35,7 +35,10 @@ SymTable_T SymTable_new(void){
 void SymTable_free(SymTable_T oSymTable){
    struct Node *free_node;
    struct Node *next_node;
+
+   /*assert*/ 
    assert(oSymTable != NULL);
+   
    free_node = oSymTable->head;
    while (free_node != NULL) {
       free((char *)free_node->key);
@@ -53,18 +56,24 @@ size_t SymTable_getLength(SymTable_T oSymTable){
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey,
                  const void *pvValue) {
+   struct Node *nNode; 
+   struct Node *currNode; 
+   void *defCopy;
 
-   assert((oSymTable != NULL) || (pcKey != NULL) || (pvValue != NULL));
+   /*assert*/ 
+   assert(oSymTable != NULL);
+   assert(pcKey != NULL); 
+   assert(pvValue != NULL);
 
-   struct Node *nNode = malloc(sizeof(struct Node));
-   struct Node *currNode = oSymTable->head;
-   /* alloc failure?*/
+   nNode = malloc(sizeof(struct Node));
+   currNode = oSymTable->head;
+   defCopy = malloc(strlen(pcKey)+1);
+
+   /* alloc failure? (nNode)*/
    if (nNode == NULL) {
       return 0;
    }
-   
-   void *defCopy = malloc(strlen(pcKey)+1);
-   /*alloc failure?*/
+   /*alloc failure? (defCopy)*/
    if (defCopy == NULL) {
       free(nNode);
       return 0;
@@ -92,8 +101,11 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
                        const void *pvValue){
    struct Node *currNode;
    void* oldValue;
+
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
    currNode = oSymTable->head;
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -108,8 +120,11 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey,
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
    struct Node *currNode;
+   
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
    currNode = oSymTable->head;
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -122,8 +137,11 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey){
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
    struct Node *currNode;
+   
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
    currNode = oSymTable->head;
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
@@ -135,13 +153,15 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey){
 }
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
-   struct Node *currNode = NULL;
-   struct Node *prev = NULL;
+   struct Node *currNode;
+   struct Node *prev;
    void* value;
+
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
+
    currNode = oSymTable->head;
-   
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
@@ -150,7 +170,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
          if (prev != NULL) {
             prev->next = currNode->next;
          } else {
-            /* removing the head node */
             oSymTable->head = currNode->next;
          }
          free((void*)currNode->key);
@@ -169,9 +188,12 @@ void SymTable_map(SymTable_T oSymTable,
                                   void *pvValue, void *pvExtra),
                   const void *pvExtra){
    struct Node *currNode;
+
+   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pfApply != NULL);
    assert(pvExtra != NULL);
+
    currNode = oSymTable->head;
    while (currNode != NULL) {
       (*pfApply)(currNode->key, (void*)currNode->value, (void*)pvExtra);
