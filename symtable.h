@@ -3,8 +3,10 @@
 #ifndef SYMTABLELIST_INCLUDED
 #define SYMTABLELIST_INCLUDED
 
-/* global variable object SymTable initialization*/
+/* struct SymTable initialization*/
 struct SymTable;
+
+/* pointer SymTable_T to object SymTable initialization */
 typedef struct SymTable *SymTable_T;
 
 /* SymTable_new returns a new SymTable and returns a pointer to the 
