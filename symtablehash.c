@@ -11,20 +11,28 @@ the size of bucket array we can either start with/ expand to */
 static const size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 
 16381, 32749, 65521};
 
+/* Bindings can be formed to make a list of Bindings and hold
+certain variables: key, value, next. */ 
 struct Binding {
+    /* char pointer to the key */
     const char *key;
+    /* void pointer to the value */
     const void* value;
+    /* pointer to the next Binding in list */
     struct Binding *next;
 }; 
 
-/* hash implementation of the SymTable struct has a double pointer 
-pointing to the head node of the first Binding (first linked list in
-the array of linked list). It also holds the total number of buckets 
-we are currently using as well as how many bindings are in the 
-SymTable */
+/* SymTable points first to the buckets by which the lists of
+Bindings can be hashed too and specifically the head Binding of the
+first list of Bindings. Symtable also holds variables regarding the
+entire hash table such as: bucketSize and bindingsSize.*/
 struct SymTable {
+    /* double pointer pointing to the head node of the first
+    linked list in the array of linked lists */
     struct Binding **head;
+    /* holds how many buckets are being used in the SymTable*/
     size_t bucketSize;
+    /* keeps track of how many Bindings total are in the SymTable */
     size_t bindingsSize;
 }; 
 

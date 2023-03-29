@@ -7,7 +7,7 @@
 #include <string.h>
 
 /* Node is a struct that can be linked together to form 
-a list of Nodes */
+a list of Nodes and holds certain variables: key, value, next */
 struct Node {
     /* char pointer to the key */
     const char *key;
