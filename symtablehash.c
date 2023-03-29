@@ -58,7 +58,6 @@ void SymTable_free(SymTable_T oSymTable){
    struct Binding *next_node;
    size_t i;
 
-   /*assert*/
    assert(oSymTable != NULL);
 
    for(i = 0; i < (size_t)oSymTable->bucketSize; i++){
