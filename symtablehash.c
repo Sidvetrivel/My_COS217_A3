@@ -85,6 +85,15 @@ size_t SymTable_getLength(SymTable_T oSymTable){
    return oSymTable->bindingsSize;
 }
 
+/* SymTable_expand takes in a parameter of a SymTable oSymTable. The 
+function first calculates the desired bucketSize to expand to. If the
+bucketSize cannot be expanded, the function returns 0 and leaves
+the SymTable unchanged. If oSymTable can be expanded, a new array is
+instantiated and all the previous bindings are rehashed into the new 
+set of buckets. However, if there is insufficient memory for a new 
+array of buckets, the function returns 0. If there is memory, and the 
+previous bindings are rehashed, the old array of buckets are freed,  
+oSymTable points to the new set of buckets, and 1 is returned. */
 static size_t SymTable_expand(SymTable_T oSymTable) {
     size_t i;
     size_t oldBucketCount;
