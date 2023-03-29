@@ -90,6 +90,9 @@ static size_t SymTable_expand(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
 
     oldBucketCount = oSymTable->bucketSize;
+    if(oldBucketCount == 65521){
+        return 0;
+    }
     for (i = 1; i < sizeof(bucketCounts); i++) {
         if (bucketCounts[i] > oSymTable->bucketSize) {
             oSymTable->bucketSize = bucketCounts[i];
