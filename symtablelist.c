@@ -155,11 +155,11 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey){
    struct Node *prev;
    void* value;
 
-   /*assert*/ 
    assert(oSymTable != NULL);
    assert(pcKey != NULL);
 
    currNode = oSymTable->head;
+   prev = NULL;
    while (currNode != NULL) {
       if (strcmp(currNode->key, pcKey) == 0) {
          value = (void*)currNode->value;
