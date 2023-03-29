@@ -29,7 +29,9 @@ void SymTable_map(SymTable_T oSymTable,
                   void (*pfApply)(const char *pcKey, 
                   void *pvValue, void *pvExtra),
                   const void *pvExtra);
-                  
+
+int SymTable_expand(SymTable_T oSymTable);
+
 #endif
 
 
