@@ -41,7 +41,7 @@ struct SymTable {
 }; 
 
 /* this function takes in parameters const char pointer pcKey and 
-size_t uBucketCount and outputs a hash index as a type size_t */
+size_t uBucketCount and returns a hash index as a type size_t */
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -50,6 +50,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
    assert(pcKey != NULL);
 
+   /* hash function */ 
    for (u = 0; pcKey[u] != '\0'; u++)
       uHash = uHash * HASH_MULTIPLIER + (size_t)pcKey[u];
 
